@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/google-gemini/gemini-cli/go-refactor/pkg/config"
-	"github.com/google-gemini/gemini-cli/go-refactor/pkg/gemini"
+	"github.com/linkalls/gemini-cli-go/pkg/config"
+	"github.com/linkalls/gemini-cli-go/pkg/gemini"
 )
 
 func Run(cfg *config.Config) {
@@ -13,7 +13,7 @@ func Run(cfg *config.Config) {
 		fmt.Printf("Debug mode enabled. Config: %+v\n", cfg)
 	}
 
-	client := gemini.NewClient(cfg.Model)
+	client := gemini.NewClient(cfg.Model, cfg.APIKey)
 
 	if cfg.Prompt != "" {
 		// Non-interactive mode

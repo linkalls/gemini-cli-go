@@ -1,4 +1,4 @@
-module github.com/google-gemini/gemini-cli/go-refactor
+module github.com/linkalls/gemini-cli-go
 
 go 1.22
 

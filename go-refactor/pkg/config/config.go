@@ -1,6 +1,8 @@
 package config
 
 import (
+	"os"
+
 	"github.com/spf13/pflag"
 )
 
@@ -9,17 +11,28 @@ type Config struct {
 	Debug   bool
 	Model   string
 	Version bool
+	APIKey  string
 }
 
-func Parse() *Config {
+func Parse(args []string) (*Config, error) {
 	cfg := &Config{}
+	fs := pflag.NewFlagSet("gemini", pflag.ContinueOnError)
 
-	pflag.StringVarP(&cfg.Prompt, "prompt", "p", "", "Run in non-interactive (headless) mode with the given prompt")
-	pflag.BoolVarP(&cfg.Debug, "debug", "d", false, "Run in debug mode")
-	pflag.StringVarP(&cfg.Model, "model", "m", "", "Model to use")
-	pflag.BoolVarP(&cfg.Version, "version", "v", false, "Print version and exit")
+	fs.StringVarP(&cfg.Prompt, "prompt", "p", "", "Run in non-interactive (headless) mode with the given prompt")
+	fs.BoolVarP(&cfg.Debug, "debug", "d", false, "Run in debug mode")
+	fs.StringVarP(&cfg.Model, "model", "m", "", "Model to use")
+	fs.BoolVarP(&cfg.Version, "version", "v", false, "Print version and exit")
+	fs.StringVar(&cfg.APIKey, "api-key", "", "Gemini API Key")
 
-	pflag.Parse()
+	err := fs.Parse(args)
+	if err != nil {
+		return nil, err
+	}
 
-	return cfg
+	// Fallback to env var for API Key
+	if cfg.APIKey == "" {
+		cfg.APIKey = os.Getenv("GEMINI_API_KEY")
+	}
+
+	return cfg, nil
 }
