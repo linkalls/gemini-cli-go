@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/linkalls/gemini-cli-go/pkg/client"
 	"github.com/linkalls/gemini-cli-go/pkg/config"
@@ -55,7 +56,11 @@ func runGemini(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create Gemini client: %w", err)
 	}
-	defer geminiClient.Close()
+	defer func() {
+		if closeErr := geminiClient.Close(); closeErr != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to close client: %v\n", closeErr)
+		}
+	}()
 
 	// Non-interactive mode with -p flag
 	if prompt != "" {

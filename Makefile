@@ -19,7 +19,7 @@ install:
 	go mod tidy
 
 build:
-	go build -o gemini main.go
+	go build -o gemini .
 
 test:
 	go test -v ./...

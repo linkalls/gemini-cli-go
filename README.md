@@ -172,27 +172,6 @@ These features may be added in future versions.
 - **[Original Gemini CLI](https://github.com/google-gemini/gemini-cli)** - The TypeScript version
 - **[Gemini API Documentation](https://ai.google.dev/gemini-api/docs)** - Official API docs
 - **[GitHub Issues](https://github.com/linkalls/gemini-cli-go/issues)** - Report bugs or request features
-  commands.
-
-### Advanced Topics
-
-- [**Headless Mode (Scripting)**](./docs/cli/headless.md) - Use Gemini CLI in
-  automated workflows.
-- [**Architecture Overview**](./docs/architecture.md) - How Gemini CLI works.
-- [**IDE Integration**](./docs/ide-integration/index.md) - VS Code companion.
-- [**Sandboxing & Security**](./docs/cli/sandbox.md) - Safe execution
-  environments.
-- [**Trusted Folders**](./docs/cli/trusted-folders.md) - Control execution
-  policies by folder.
-- [**Enterprise Guide**](./docs/cli/enterprise.md) - Deploy and manage in a
-  corporate environment.
-- [**Telemetry & Monitoring**](./docs/cli/telemetry.md) - Usage tracking.
-- [**Tools API Development**](./docs/core/tools-api.md) - Create custom tools.
-- [**Local development**](./docs/local-development.md) - Local development
-  tooling.
-
-### Troubleshooting & Support
-
 
 ## 🤝 Contributing
 

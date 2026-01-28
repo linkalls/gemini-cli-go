@@ -15,7 +15,7 @@ fi
 
 # Build the binary
 echo "Building binary..."
-go build -o gemini main.go
+go build -o gemini .
 
 # Move to /usr/local/bin (requires sudo on Linux/macOS)
 if [ -w /usr/local/bin ]; then

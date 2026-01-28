@@ -18,7 +18,6 @@ type Client struct {
 	genaiClient *genai.Client
 	model       *genai.GenerativeModel
 	ctx         context.Context
-	history     []*genai.Content
 }
 
 // NewClient creates a new Gemini client
@@ -41,7 +40,9 @@ func NewClient(cfg *config.Config) (*Client, error) {
 
 	model := genaiClient.GenerativeModel(cfg.Model)
 
-	// Configure safety settings to be permissive (matching TypeScript version behavior)
+	// Configure safety settings to be permissive
+	// Note: This bypasses Gemini's safety filters. Use with caution.
+	// For production use, consider more restrictive safety settings.
 	model.SafetySettings = []*genai.SafetySetting{
 		{
 			Category:  genai.HarmCategoryHarassment,
@@ -65,7 +66,6 @@ func NewClient(cfg *config.Config) (*Client, error) {
 		genaiClient: genaiClient,
 		model:       model,
 		ctx:         ctx,
-		history:     make([]*genai.Content, 0),
 	}, nil
 }
 
