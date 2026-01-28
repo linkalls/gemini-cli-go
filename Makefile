@@ -1,59 +1,40 @@
-# Makefile for gemini-cli
+# Makefile for gemini-cli (Go version)
 
-.PHONY: help install build build-sandbox build-all test lint format preflight clean start debug release run-npx create-alias
+.PHONY: help install build test lint format clean run
 
 help:
-	@echo "Makefile for gemini-cli"
+	@echo "Makefile for gemini-cli (Go version)"
 	@echo ""
 	@echo "Usage:"
-	@echo "  make install          - Install npm dependencies"
-	@echo "  make build            - Build the main project"
-	@echo "  make build-all        - Build the main project and sandbox"
+	@echo "  make install          - Install Go dependencies"
+	@echo "  make build            - Build the Go binary"
 	@echo "  make test             - Run the test suite"
-	@echo "  make lint             - Lint the code"
+	@echo "  make lint             - Lint the code (requires golangci-lint)"
 	@echo "  make format           - Format the code"
-	@echo "  make preflight        - Run formatting, linting, and tests"
 	@echo "  make clean            - Remove generated files"
-	@echo "  make start            - Start the Gemini CLI"
-	@echo "  make debug            - Start the Gemini CLI in debug mode"
-	@echo ""
-	@echo "  make run-npx          - Run the CLI using npx (for testing the published package)"
-	@echo "  make create-alias     - Create a 'gemini' alias for your shell"
+	@echo "  make run              - Run the Gemini CLI"
 
 install:
-	npm install
+	go mod download
+	go mod tidy
 
 build:
-	npm run build
-
-
-build-all:
-	npm run build:all
+	go build -o gemini main.go
 
 test:
-	npm run test
+	go test -v ./...
 
 lint:
-	npm run lint
+	@which golangci-lint > /dev/null || (echo "golangci-lint not installed. Install with: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest" && exit 1)
+	golangci-lint run
 
 format:
-	npm run format
-
-preflight:
-	npm run preflight
+	go fmt ./...
+	gofmt -s -w .
 
 clean:
-	npm run clean
+	rm -f gemini
+	go clean
 
-start:
-	npm run start
-
-debug:
-	npm run debug
-
-
-run-npx:
-	npx https://github.com/google-gemini/gemini-cli
-
-create-alias:
-	scripts/create_alias.sh
+run: build
+	./gemini

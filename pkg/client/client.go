@@ -40,7 +40,7 @@ func NewClient(cfg *config.Config) (*Client, error) {
 	}
 
 	model := genaiClient.GenerativeModel(cfg.Model)
-	
+
 	// Configure safety settings to be permissive (matching TypeScript version behavior)
 	model.SafetySettings = []*genai.SafetySetting{
 		{
