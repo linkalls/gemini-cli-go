@@ -20,6 +20,21 @@
 node_modules
 bower_components
 
+# Go binaries
+gemini-cli-go
+gemini
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go test/coverage files
+*.test
+*.out
+coverage.txt
+coverage.html
+
 # Editors
 .idea
 *.iml
